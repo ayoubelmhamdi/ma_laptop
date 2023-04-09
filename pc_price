@@ -1,0 +1,37 @@
+#!/bin/env python3
+import matplotlib.pyplot as plt
+
+# import numpy as np
+
+price = [500, 5_000]
+score = [p / 1.5 for p in price]
+
+X_move, Y_move = 100, 100
+points = {
+    ##   [price, score],
+    # "p1": [500, 500/6],
+    # "p2": [5_000, 5_000/6],
+    "L1": [2_000, 1_870],
+    "L2": [3_000, 1_480],  # i5 5200U
+    "M1": [4_500, 2_000],  # i7-6650U
+  # "M2": [1_111, 1_111],  #
+    "H1": [5_000, 3_600],  # i5-8300H
+    "Simo": [2_100, 1_500],  # i5-6300U
+}
+fig, ax = plt.subplots(figsize=(6, 6))
+
+ax.semilogy(price, score)
+ax.set_yticks([1, 10, 100, 1000, 10000, 100000])
+ax.set_yticklabels(["1", "10", "100", "1k", "10k", "100k"])
+ax.set_ylim([10, 20_000])
+
+for label in points:
+    ax.annotate(
+        label,
+        (points[label][0], points[label][1]),
+        xytext=(points[label][0] + X_move, points[label][1] + Y_move),
+    )
+    ax.scatter(points[label][0], points[label][1])
+
+plt.legend()
+plt.show()
